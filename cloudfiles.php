@@ -1952,6 +1952,21 @@ class CF_Object
      * @throws BadContentTypeException
      */
     function _guess_content_type($handle) {
+        
+        // Overwrite mime-types for common extensions
+        $filename = (string)$handle;
+        $ext = substr(strrchr(basename($filename),'.'),1);
+        switch($ext)
+        {
+            case 'css': $this->content_type = "text/css"; break;
+            case 'js':  $this->content_type = "application/javascript"; break;
+            case 'jpg': $this->content_type = "image/jpeg"; break;
+            case 'jpeg':$this->content_type = "image/jpeg"; break;
+            case 'gif': $this->content_type = "image/gif"; break;
+            case 'png': $this->content_type = "image/png"; break;
+            default: ''; break;
+        }
+        
         if ($this->content_type)
             return;
             
